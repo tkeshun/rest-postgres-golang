@@ -1,0 +1,17 @@
+services:
+  postgres:
+    build:
+      context: postgresql
+      dockerfile: Dockerfile
+    container_name: my_postgres_container
+    ports:
+      - "5432:5432"  # ホストのポート:コンテナのポート
+    environment:
+      POSTGRES_DB: rest-postgres    # 作成するデータベース名
+      POSTGRES_USER: user        # データベースのユーザー名
+      POSTGRES_PASSWORD: password  # ユーザーのパスワード
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # データの永続化
+
+volumes:
+  pgdata:
