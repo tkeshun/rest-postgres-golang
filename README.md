@@ -10,5 +10,3 @@
     /set-endpoint/
     
 
-## メモ
-host=localhost port=5432 user=user password=password dbname=rest-postgres sslmode=disable
