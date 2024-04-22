@@ -33,7 +33,7 @@ func TestConnectDataBase(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx := context.Background()
 			_, closer, err := ConnectDataBase(ctx)
-			defer closer(ctx)
+			defer closer()
 			assert.NoError(t, err)
 		})
 	}
