@@ -3,6 +3,7 @@ package repo
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -22,6 +23,7 @@ import (
 // }
 
 func TestConnectDataBase(t *testing.T) {
+	os.Setenv("DATABASE_URL", "postgres://user:password@localhost:5432/rest-postgres")
 	tests := []struct {
 		name string
 	}{
@@ -32,7 +34,7 @@ func TestConnectDataBase(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx := context.Background()
-			_, closer, err := ConnectDataBase(ctx)
+			closer, err := ConnectDataBase(ctx)
 			defer closer()
 			assert.NoError(t, err)
 		})

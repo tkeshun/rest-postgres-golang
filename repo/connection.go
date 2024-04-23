@@ -9,17 +9,14 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// TODO:環境変数化する
-const (
-	DATABASE_URL = "postgres://user:password@localhost:5432/rest-postgres"
-	// DATABASE_URL = "host=localhost port=5432 user=user password=password dbname=rest-postgres sslmode=disable"
-)
+var connPool *pgxpool.Pool
 
-func ConnectDataBase(ctx context.Context) (*pgxpool.Pool, func(), error) {
-	dbpool, err := pgxpool.New(ctx, DATABASE_URL)
+func ConnectDataBase(ctx context.Context) (func(), error) {
+	dbpool, err := pgxpool.New(ctx, os.Getenv("DATABASE_URL"))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)
 	}
-	return dbpool, dbpool.Close, nil
+	connPool = dbpool
+	return dbpool.Close, nil
 }
