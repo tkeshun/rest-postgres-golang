@@ -7,6 +7,7 @@ services:
     ports:
       - "5432:5432"  # ホストのポート:コンテナのポート
     environment:
+      DATABASE_URL: postgres://user:password@localhost:5432/rest-postgres
       POSTGRES_DB: rest-postgres    # 作成するデータベース名
       POSTGRES_USER: user        # データベースのユーザー名
       POSTGRES_PASSWORD: password  # ユーザーのパスワード
